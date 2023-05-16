@@ -1,5 +1,7 @@
+import 'package:donation_app/Authentication/signup.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/HomePage.dart';
 import 'common/custom_form_button.dart';
 import 'common/custom_input_field.dart';
 import 'common/page_heading.dart';
@@ -15,6 +17,13 @@ class _LoginPageState extends State<LoginPage> {
   final _loginFormKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  bool isEmailValid(String email) {
+    // Regular expression pattern for email validation
+    RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+
+    return regex.hasMatch(email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +130,34 @@ class _LoginPageState extends State<LoginPage> {
                         CustomFormButton(
                             innerText: 'Login',
                             onPressed: () {
-                              print('aaa');
+                              if (!_emailController.text.toString().isEmpty) {
+                                if (isEmailValid(
+                                    _emailController.text.toString())) {
+                                  if (!_passwordController.text.isEmpty) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomePage()));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Please fill the Password field')),
+                                    );
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Email Pattern Invalid')),
+                                  );
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Missing Email field')),
+                                );
+                              }
                             }),
                         const SizedBox(
                           height: 10,
@@ -144,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const Placeholder()))
+                                              const SignupPage()))
                                 },
                                 child: Text(
                                   'Sign-up',

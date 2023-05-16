@@ -10,8 +10,9 @@ class PageHeader extends StatelessWidget {
       //width: double.infinity,
       height: 120,
       child: Image.asset(
-        'assets/images/logo.jpeg',
-        width: 150,
+        'assets/images/Hands.jpg',
+        width: double.infinity,
+        fit: BoxFit.cover,
       ),
     );
   }

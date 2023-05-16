@@ -39,7 +39,10 @@ class _CustomInputFieldState extends State<CustomInputField> {
             alignment: Alignment.centerLeft,
             child: Text(
               widget.labelText,
-              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.red.shade900,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           TextFormField(
